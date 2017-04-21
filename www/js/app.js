@@ -23,19 +23,19 @@ angular.module('timesApp', ['ionic'])
   });
 })
 .config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-        .state('times', {
-            url: '/times',
-            templateUrl: 'templates/times.html',
-            controller: 'TimesController',
-            controllerAs: 'times'
-        })
-		.state('time-detalhe', {
-            url: '/times/:timeNome',
-            templateUrl: 'templates/time-detalhe.html',
-            controller: 'TimeDetalheController',
-            controllerAs: 'timeDetalhe'
-        });
-        
+    $stateProvider.state('times', {
+        url: '/times',
+        templateUrl: 'templates/times.html',
+        controller: 'TimesController',
+        controllerAs: 'ctrl'
+    });
+
+    $stateProvider.state('time-detalhe', {
+        url: '/times/:nomeTime',
+        templateUrl: 'templates/time-detalhes.html',
+        controller: 'TimeDetalhesController',
+        controllerAs: 'ctrl'
+    });
+
     $urlRouterProvider.otherwise('/times');
 });
