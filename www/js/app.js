@@ -29,6 +29,12 @@ angular.module('timesApp', ['ionic'])
             templateUrl: 'templates/times.html',
             controller: 'TimesController',
             controllerAs: 'times'
+        })
+		.state('time-detalhe', {
+            url: '/times/:timeNome',
+            templateUrl: 'templates/time-detalhe.html',
+            controller: 'TimeDetalheController',
+            controllerAs: 'timeDetalhe'
         });
         
     $urlRouterProvider.otherwise('/times');
