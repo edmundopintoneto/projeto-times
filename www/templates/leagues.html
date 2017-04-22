@@ -1,0 +1,14 @@
+<ion-view view-title="Campeonatos">
+    <ion-content>
+
+        <ion-list>
+            <ion-item ng-repeat="league in leagues" class="item-thumbnail-left" ui-sref="teams({leagueName: league.nomecampeonato.value})">
+                <img ng-if="league.brazao" ng-src="{{ league.brazao.value }}" ng-attr-alt="{{ league.nomecampeonato.value }}" />
+                <h2>{{ league.nomecampeonato.value }}</h2>
+                <p ng-if="league.numeroDeTimes">Times registrados: {{ league.numeroDeTimes.value }}</p>
+                <p ng-if="league.PaisNome">País: {{ league.PaisNome.value }}</p>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>
