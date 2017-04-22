@@ -2,46 +2,17 @@
 
     var app = angular.module('timesApp');
 
-    app.controller('TimesController', function(Times, $scope, $ionicLoading) {
-        var _this = this;
-
-        $scope.$on('$ionicView.enter', function(){
-            $ionicLoading.show();
-
-            Times.getTimes().then(function(response){
-              	_this.times = response.data;
-            }).catch(function(response){
-                //request was not successful
-                //handle the error
-            }).finally(function(){
-                $ionicLoading.hide();
-            });
-        });
+    app.controller('LeaguesController', function($scope, leagues) {
+        $scope.leagues = leagues.data.results.bindings;
     });
 
-    app.controller('TimeDetalhesController', function(Times, $scope, $ionicLoading, $stateParams) {
-        var _this = this;
+    app.controller('TeamsController', function($scope, $stateParams, teams) {
+        $scope.leagueName = $stateParams.leagueName;
+        $scope.teams = teams.data.results.bindings;
+    });
 
-        $scope.$on('$ionicView.enter', function() {
-            $ionicLoading.show();
-
-            Times.getTimes().then(function(response) {
-
-                for (var i = 0; i < response.data['results']['bindings'].length; i++) {
-                    if (response.data['results']['bindings'][i]['nome']['value'] == $stateParams.timeNome) {
-                        _this.nome = response.data['results']['bindings'][i]['nome']['value'];
-                        _this.escudo = response.data['results']['bindings'][i]['escudo']['value'];
-                        break;
-                    }
-                }
-
-			}).catch(function(response) {
-                //request was not successful
-                //handle the error
-            }).finally(function() {
-                $ionicLoading.hide();
-            });
-        });
+    app.controller('TeamController', function($scope, $stateParams, team) {
+        $scope.team = team.data.results.bindings[0];
     });
 
 })(angular);
