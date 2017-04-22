@@ -23,19 +23,46 @@ angular.module('timesApp', ['ionic'])
   });
 })
 .config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider.state('times', {
-        url: '/times',
-        templateUrl: 'templates/times.html',
-        controller: 'TimesController',
-        controllerAs: 'ctrl'
+    $stateProvider.state('leagues', {
+        url: '/',
+        templateUrl: 'templates/leagues.html',
+        controller: 'LeaguesController',
+        resolve: {
+            leagues: function(Times) {
+                return Times.getLeagues();
+            }
+        }
     });
 
-    $stateProvider.state('time-detalhe', {
-        url: '/times/:nomeTime',
-        templateUrl: 'templates/time-detalhes.html',
-        controller: 'TimeDetalhesController',
-        controllerAs: 'ctrl'
+    $stateProvider.state('teams', {
+        url: '/times/:leagueName',
+        templateUrl: 'templates/teams.html',
+        controller: 'TeamsController',
+        resolve: {
+            teams: function(Times, $stateParams) {
+                return Times.getTeams($stateParams.leagueName);
+            }
+        }
     });
 
-    $urlRouterProvider.otherwise('/times');
+    $stateProvider.state('team', {
+        url: '/times/:leagueName/:teamName',
+        templateUrl: 'templates/team.html',
+        controller: 'TeamController',
+        resolve: {
+            team: function(Times, $stateParams, $q) {
+                var q = $q.defer();
+
+                Times.getTeam($stateParams.leagueName, $stateParams.teamName).then(data => {
+                    q.resolve(data);
+                }, err => {
+                    q.reject(err);
+                });
+
+                return q.promise;
+            }
+        }
+    });
+
+    $urlRouterProvider.otherwise('/');
 });
