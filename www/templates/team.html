@@ -1,5 +1,9 @@
 <ion-view view-title="{{ team.nome.value }}">
-    <ion-content class="">
+    <ion-content class="padding">
+
+        <div ng-if="team.escudo" style="text-align: center">
+            <img ng-src="{{team.escudo.value}}" ng-attr-alt="{{team.nome.value}}" style="max-height: 200px; max-width: 100%;" />
+        </div>
 
         <div class="card">
             <div class="item item-divider">Técnico:</div>
